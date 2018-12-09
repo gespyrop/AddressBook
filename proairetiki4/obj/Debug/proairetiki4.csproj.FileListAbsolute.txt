@@ -1,0 +1,10 @@
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\bin\Debug\proairetiki4.exe.config
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\bin\Debug\proairetiki4.exe
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\bin\Debug\proairetiki4.pdb
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.csprojAssemblyReference.cache
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.Form1.resources
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.Properties.Resources.resources
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.csproj.GenerateResource.cache
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.csproj.CoreCompileInputs.cache
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.exe
+C:\Users\gespy\source\repos\proairetiki4\proairetiki4\obj\Debug\proairetiki4.pdb
