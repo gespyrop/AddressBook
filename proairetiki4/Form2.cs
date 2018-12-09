@@ -45,7 +45,22 @@ namespace proairetiki4
 
         private void button1_Click(object sender, EventArgs e)
         {
-
+            contacts.Remove(contact);
+            contact = new Contact()
+                .AddName(textBox1.Text)
+                .AddSurname(textBox2.Text)
+                .AddTelephone(textBox3.Text)
+                .AddEmail(textBox4.Text)
+                .AddAddress(textBox5.Text)
+                .AddBirthday(numericUpDown1.Value.ToString() + " " + numericUpDown2.Value.ToString() + " " + numericUpDown3.Value.ToString());
+            contacts.Add(contact);
+            BinaryFormatter bf = new BinaryFormatter();
+            Stream st = new FileStream("contacts.txt", FileMode.OpenOrCreate);
+            bf.Serialize(st, contacts);
+            st.Close();
+            this.Hide();
+            new Form1().ShowDialog();
+            this.Close();
         }
 
         private void button2_Click(object sender, EventArgs e)

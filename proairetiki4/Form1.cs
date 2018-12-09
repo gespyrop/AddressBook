@@ -77,13 +77,6 @@ namespace proairetiki4
             }
         }
 
-        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
-        {
-            this.Hide();
-            new Form2(FindContact(listBox1.SelectedItem.ToString()), contacts).ShowDialog();
-            this.Close();
-        }
-
         private void button2_Click(object sender, EventArgs e)
         {
             textBox1.Clear();
@@ -94,6 +87,13 @@ namespace proairetiki4
             numericUpDown1.Value = 1;
             numericUpDown2.Value = 1;
             numericUpDown3.Value = 2000;
+        }
+
+        private void listBox1_SelectedIndexChanged(object sender, EventArgs e)
+        {
+            this.Hide();
+            new Form2(FindContact(listBox1.SelectedItem.ToString()), contacts).ShowDialog();
+            this.Close();
         }
     }
 }
