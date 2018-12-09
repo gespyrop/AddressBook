@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 namespace proairetiki4
 {
     [Serializable]
-    class Contact
+    public class Contact
     {
         private string name;
         private string surname;
