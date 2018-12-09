@@ -85,7 +85,7 @@ namespace proairetiki4
                 if (textBox1.Text.Trim() == "" && textBox2.Text.Trim() == "") {
                     MessageBox.Show("Name and surname cannot both be empty!", "Empty name and surname!");
                 }
-                else if (!Regex.IsMatch(textBox3.Text.Trim(), @"[0-9]+$"))
+                else if (textBox3.Text.Trim() != "" && !Regex.IsMatch(textBox3.Text.Trim(), @"[0-9]+$"))
                 {
                     MessageBox.Show("Telephone must contain only numbers", "Incorrect telephone number!");
                 }
