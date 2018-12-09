@@ -10,6 +10,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Runtime.Serialization;
+using System.Text.RegularExpressions;
 
 namespace proairetiki4
 {
@@ -35,8 +36,28 @@ namespace proairetiki4
             return new Contact();
         }
 
+        private void FilterContacts() {
+            listBox1.Items.Clear();
+            if (radioButton1.Checked)
+            {
+                foreach (Contact contact in contacts)
+                    if (contact.GetName().ToLower().StartsWith(textBox6.Text.ToLower())) listBox1.Items.Add(contact);
+            }
+            else if (radioButton2.Checked)
+            {
+                foreach (Contact contact in contacts)
+                    if (contact.GetSurname().ToLower().StartsWith(textBox6.Text.ToLower())) listBox1.Items.Add(contact);
+            }
+            else if (radioButton3.Checked)
+            {
+                foreach (Contact contact in contacts)
+                    if (contact.GetTelephone().ToLower().StartsWith(textBox6.Text.ToLower())) listBox1.Items.Add(contact);
+            }
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
+            numericUpDown1.Maximum = DateTime.Now.Year;
             BinaryFormatter bf = new BinaryFormatter();
             Stream st = new FileStream("contacts.txt", FileMode.OpenOrCreate);
             try
@@ -57,10 +78,24 @@ namespace proairetiki4
 
         private void button1_Click(object sender, EventArgs e)
         {
-            if (isContact(textBox1.Text.Trim() + " " + textBox2.Text.Trim())) MessageBox.Show("Contact already exists!");
+            if (isContact(textBox1.Text.Trim() + " " + textBox2.Text.Trim()))
+                MessageBox.Show("Contact already exists!");
             else
             {
-                Contact c = new Contact()
+                if (textBox1.Text.Trim() == "" && textBox2.Text.Trim() == "") {
+                    MessageBox.Show("Name and surname cannot both be empty!", "Empty name and surname!");
+                }
+                else if (!Regex.IsMatch(textBox3.Text.Trim(), @"[0-9]+$"))
+                {
+                    MessageBox.Show("Telephone must contain only numbers", "Incorrect telephone number!");
+                }
+                else if (!Regex.IsMatch(textBox4.Text.Trim(), @"[0-9A-Za-z]+@[A-Za-z]+\.[A-Za-z]{2,3}$") && textBox4.Text.ToString().Trim() != "")
+                {
+                    MessageBox.Show("Your email is incorrect!", "Incorrect email!");
+                }
+                else
+                {
+                    Contact c = new Contact()
                     .AddName(textBox1.Text.Trim())
                     .AddSurname(textBox2.Text.Trim())
                     .AddTelephone(textBox3.Text.Trim())
@@ -68,12 +103,13 @@ namespace proairetiki4
                     .AddAddress(textBox5.Text.Trim())
                     .AddBirthday(numericUpDown1.Value.ToString() + " " + numericUpDown2.Value.ToString() + " " + numericUpDown3.Value.ToString());
 
-                contacts.Add(c);
-                BinaryFormatter bf = new BinaryFormatter();
-                Stream st = new FileStream("contacts.txt", FileMode.OpenOrCreate);
-                bf.Serialize(st, contacts);
-                st.Close();
-                listBox1.Items.Add(c);
+                    contacts.Add(c);
+                    BinaryFormatter bf = new BinaryFormatter();
+                    Stream st = new FileStream("contacts.txt", FileMode.OpenOrCreate);
+                    bf.Serialize(st, contacts);
+                    st.Close();
+                    listBox1.Items.Add(c);
+                }
             }
         }
 
@@ -94,6 +130,41 @@ namespace proairetiki4
             this.Hide();
             new Form2(FindContact(listBox1.SelectedItem.ToString()), contacts).ShowDialog();
             this.Close();
+        }
+
+        private void textBox3_TextChanged(object sender, EventArgs e)
+        {
+            textBox3.ForeColor = Regex.IsMatch(textBox3.Text.Trim(), "[0-9]+$") ? Color.Black : Color.Red;
+        }
+
+        private void textBox4_TextChanged(object sender, EventArgs e)
+        {
+            textBox4.ForeColor = Regex.IsMatch(textBox4.Text.Trim(), @"[0-9A-Za-z]+@[A-Za-z]+\.[A-Za-z]{2,3}$") ? Color.Black : Color.Red;
+        }
+
+        private void textBox6_TextChanged(object sender, EventArgs e)
+        {
+            FilterContacts();
+        }
+
+        private void radioButton1_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterContacts();
+        }
+
+        private void radioButton2_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterContacts();
+        }
+
+        private void radioButton3_CheckedChanged(object sender, EventArgs e)
+        {
+            FilterContacts();
+        }
+
+        private void panel1_Paint(object sender, PaintEventArgs e)
+        {
+
         }
     }
 }
